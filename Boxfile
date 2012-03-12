@@ -1,0 +1,14 @@
+global:
+  env:
+    - APP_NAME: composer
+
+web1:
+  name: composer            #component settings
+  shared_writable_dirs:
+  document_root: doc
+  php_version: 5.3
+
+  after_deploy:
+    - "curl -s http://getcomposer.org/installer | php"
+    - "php composer.phar install"
+    - "phpunit --coverage-html=doc/coverage"
